@@ -2,9 +2,10 @@ from selenium import webdriver
 import unittest
 
 class NewVisitorTest(unittest.TestCase):
+
   def setUp(self):
     self.browser = webdriver.Firefox()
-    self.browser = implicitly_wait(3)
+    self.browser.implicitly_wait(3)
 
   def tearDown(self):
     self.browser.quit()
@@ -15,7 +16,7 @@ class NewVisitorTest(unittest.TestCase):
     self.browser.get('http://localhost:8000')
 
     #User should note the appropriate title and header in the web-page
-    self.assertIn('To-do', self.browser.title)
+    self.assertIn('To-Do lists', self.browser.title)
     self.fail("Finish the test!")
 
     #User should be invited to create a to-do item immediately
