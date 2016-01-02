@@ -22,12 +22,21 @@ class NewVisitorTest(unittest.TestCase):
     self.assertIn('To-Do', header_text)
 
     #User should be invited to create a to-do item immediately
+    inputbox = self.browser.find_element_by_id('id_new_item')
+    self.assertEqual(inputbox.get_attribute('placeholder'), 'Enter a to-do item')
 
     #User enters a to-do item into a text box
+    inputbox.send_keys('Buy peacock feathers')
 
-    #User confirms entry, the page updates, and page lists the user entry
+    #User confirms entry via <Enter>, the page updates, and page lists the user entry
+    inputbox.send_keys(Keys.ENTER)
+
+    table = self.browser.find_element_by_id('id_list_table')
+    rows - table.find_elements_by_tag_name('tr')
+    self.assertTrue(any(row.text == '1: Buy peacock feathers' for row in rows))
 
     #User can add another item to the list if desired
+    self.fail('Finish the test!')
 
     #If user adds another item, page updates again and shows two items in list
 
