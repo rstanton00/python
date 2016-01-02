@@ -1,4 +1,5 @@
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 import unittest
 
 class NewVisitorTest(unittest.TestCase):
@@ -17,7 +18,8 @@ class NewVisitorTest(unittest.TestCase):
 
     #User should note the appropriate title and header in the web-page
     self.assertIn('To-Do lists', self.browser.title)
-    self.fail("Finish the test!")
+    header_text = self.browser.find_element_by_tag_name('h1').text
+    self.assertIn('To-Do', header_text)
 
     #User should be invited to create a to-do item immediately
 
