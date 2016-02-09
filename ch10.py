@@ -68,5 +68,49 @@ def countNumOfCommits(myFile):
   resultList.sort(reverse=True)
   print(resultList[0])
 
+
+def countHoursSent(myFile):
+  try:
+    fIn = open(myFile)
+  except:
+    print('File cannot be opened: ', myFile)
+    exit()
+  hourCountDict = dict()
+  resultList = list()
+  for myLine in fIn:
+    if myLine.startswith('From'):
+      arrWords = myLine.split()
+      if len(arrWords) > 4:
+        arrTime = arrWords[5].split(':')
+        if len(arrTime) == 3:
+          hourCountDict[arrTime[0]] = hourCountDict.get(arrTime[0], 0) + 1
+  #print(sorted(hourCountDict))
+  for hour, count in hourCountDict.items():
+    resultList.append((hour, count))
+  resultList.sort()
+  print(resultList)
+
+
+def countLetters(myFile):
+  try:
+    fIn = open(myFile)
+  except:
+    print('File cannot be opened: ', myFile)
+    exit()
+  dLetterCount = dict()
+  resultList = list()
+  for myLine in fIn:
+    myLine = myLine.lower()
+    for char in myLine:
+      if char.isalpha():
+        dLetterCount[char] = dLetterCount.get(char, 0) + 1
+  for char, count in dLetterCount.items():
+    resultList.append((char, count))
+  resultList.sort(reverse=True)
+  print(resultList)
+
+
 if __name__ == "__main__":
   countNumOfCommits('mbox-short.txt')
+  countHoursSent('mbox-short.txt')
+  countLetters('mbox-short.txt')
