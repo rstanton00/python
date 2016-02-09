@@ -6,7 +6,6 @@ def inWords(myFile):
   except:
     print('File cant be opened: ', myFile)
     exit()
-
   words = dict()
   for myLine in fIn:
     myLIne = myLine.lower().translate(str.maketrans('', '', string.punctuation))
@@ -17,6 +16,7 @@ def inWords(myFile):
        i += 1
   print('Found this many words: ', len(words))
 
+
 def letterCount():
   word = 'brontosaurus'
   d = dict()
@@ -24,13 +24,13 @@ def letterCount():
     d[c] = d.get(c,0) + 1
   print(d)
 
+
 def dayCount(myFile):
   try:
     fIn = open(myFile)
   except:
     print('Unable to open file')
     exit()
-
   days = dict()
   for myLine in fIn:
     if myLine.startswith('From'):
@@ -46,7 +46,6 @@ def fromLogger(myFile):
   except:
     print ('Unable to open file')
     exit()
-
   senders = dict()
   for myLine in fIn:
     if myLine.startswith('From'):
@@ -54,7 +53,6 @@ def fromLogger(myFile):
       if len(fromArr) >= 1:
         senders[fromArr[1]] = senders.get(fromArr[1], 0) + 1
   print(senders)
-  
   #find highest sender
   value = 0
   highest = ''
@@ -71,7 +69,6 @@ def schoolCount(myFile):
   except:
     print ('Unable to open file')
     exit()
-
   senders = dict()
   for myLine in fIn:
     if myLine.startswith('From'):
