@@ -51,3 +51,4 @@ def revisionCount(myFile):
 if __name__ == "__main__":
   grepPy('mbox.txt', '^Author')
   revisionCount('mbox.txt')
+  revisionCount('mbox-short.txt')
