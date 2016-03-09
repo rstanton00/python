@@ -35,5 +35,3 @@ while True:
   print(len(data), count)
   picture = picture + data.decode()
 mysock.close()
-
-#1
