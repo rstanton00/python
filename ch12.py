@@ -22,6 +22,8 @@ while True:
 #close socket to the webserver
 mysock.close()
 
+
+#this is not working
 mysock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 mysock.connect(('www.py4inf.com', 80))
 mysock.send(b'GET http://www.py4inf.com/cover.jpg HTTP/1.0\n\n')
