@@ -1,5 +1,6 @@
 import socket
 import time
+from urllib.request import urlopen
 
 #create an INET, streaming socket
 mysock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -26,14 +27,30 @@ mysock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 mysock.connect(('www.py4inf.com', 80))
 mysock.send(b'GET http://www.py4inf.com/cover.jpg HTTP/1.0\n\n')
 count = 0
-picture = "";
+#initialize picture an empty byte string, because we are adding 
+#data (in bytestring) to it with each iteration of the loop
+picture = b'';
 while True:
   data = mysock.recv(5120)
   if ( len(data) < 1 ) : break
   # time.sleep(0.25)
   count = count + len(data)
   print(len(data), count)
-  picture = picture + data.decode()
+  picture = picture + data
 mysock.close()
 
-#1
+# Look for the end of the header (2 CRLF)
+pos = picture.find(b"\r\n\r\n");
+print('Header length', pos)
+print(picture[:pos])
+
+# Skip past the header and save the picture data
+picture = picture[pos+4:]
+fhand = open("stuff.jpg","wb")
+fhand.write(picture);
+fhand.close()
+
+
+fhand = urlopen('http://www.py4inf.com/code/romeo.txt')
+for line in fhand:
+  print(line.strip())
