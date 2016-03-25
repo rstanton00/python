@@ -1,4 +1,4 @@
-#Dictionaries (Hashes)
+#dictionaries (hashes) (key to value pairs)
 
 import string
 
