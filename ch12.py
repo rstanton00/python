@@ -3,6 +3,9 @@ import time
 import re
 from urllib.request import urlopen
 
+#for Beautiful Soup
+from bs4 import *
+
 #create an INET, streaming socket
 #mysock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -64,6 +67,31 @@ print(counts)
 
 url = input('Enter - ')
 html = urlopen(url).read()
-links = re.findall('href="(http://.*?)"', html.decode())
-for link in links:
-  print(link)
+#links = re.findall('href="(http://.*?)"', html.decode())
+#for link in links:
+#  print(link)
+soup = BeautifulSoup(html.decode(), 'html.parser')
+#soup = BeautifulSoup(html, "html.parser")
+
+print('LINKS')
+#retrieve all of the anchor tags
+for link in soup.find_all('a'):
+  print(link.get('href'))
+  print('Content: ', link.contents[0])
+  print('Attrs: ', link.attrs)
+
+#print('TEXT')
+#print(soup.get_text())
+
+#download an image
+img = urlopen('http://www.py4inf.com/cover.jpg')
+fhand = open('cover.jpg', 'wb')
+size = 0
+while True:
+  info = img.read(100000)
+  if len(info) < 1 : break
+  size = size + len(info)
+  fhand.write(bytes(info))
+
+print(size, 'characters copied.')
+fhand.close()
