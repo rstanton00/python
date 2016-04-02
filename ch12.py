@@ -65,33 +65,92 @@ for line in fhand:
     counts[word.decode()] = counts.get(word.decode(), 0) + 1
 print(counts)
 
-url = input('Enter - ')
-html = urlopen(url).read()
+#url = input('Enter - ')
+#html = urlopen(url).read()
 #links = re.findall('href="(http://.*?)"', html.decode())
 #for link in links:
 #  print(link)
-soup = BeautifulSoup(html.decode(), 'html.parser')
+#soup = BeautifulSoup(html, 'html.parser')
 #soup = BeautifulSoup(html, "html.parser")
 
-print('LINKS')
+#print('LINKS')
 #retrieve all of the anchor tags
-for link in soup.find_all('a'):
-  print(link.get('href'))
-  print('Content: ', link.contents[0])
-  print('Attrs: ', link.attrs)
+#for link in soup.find_all('a'):
+#  print(link.get('href'))
+#  print('Content: ', link.contents[0])
+#  print('Attrs: ', link.attrs)
 
 #print('TEXT')
 #print(soup.get_text())
 
 #download an image
-img = urlopen('http://www.py4inf.com/cover.jpg')
-fhand = open('cover.jpg', 'wb')
-size = 0
-while True:
-  info = img.read(100000)
-  if len(info) < 1 : break
-  size = size + len(info)
-  fhand.write(bytes(info))
+#img = urlopen('http://www.py4inf.com/cover.jpg')
+#fhand = open('cover.jpg', 'wb')
+#size = 0
+#while True:
+#  info = img.read(100000)
+#  if len(info) < 1 : break
+#  size = size + len(info)
+#  fhand.write(bytes(info))
 
-print(size, 'characters copied.')
-fhand.close()
+#print(size, 'characters copied.')
+#fhand.close()
+
+
+def socketProg1():
+  url = input('Enter a url - ')
+
+  try:
+    re.search('^http\:\/\/www\.\w+\.\w+$', url)
+  except:
+    print('URL entered was not valid: ', url)
+    exit()
+
+  urlPieces = url.split('/')
+  #create an INET, streaming socket
+  mysock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+  #connect to the web server on port 80, the normal http port
+  print('url piece 2: ', urlPieces[2])
+  mysock.connect((urlPieces[2], 80))
+  
+  totalsent=0
+  mysock.send(b'GET '.join([bytes(url, 'utf8'), b' HTTP/1.0\n\n']))
+
+  while True:
+    #receive data in 512 byte chunks from the socket
+    #recv returns an empty string when there is no more data to read
+    data = mysock.recv(512)
+    if ( len(data) < 1 ) :
+      break
+    print("data is\n", data.decode())
+
+  #close socket to the webserver
+  mysock.close()
+
+
+def socketProg3():
+  url = input('Enter a url - ')
+  try:
+    re.search('^http\:\/\/www\.\w+\.\w+$', url)
+  except:
+    print('URL entered was not valid: ', url)
+    exit()
+
+  charCount = 0
+  fIn = urlopen(url)
+  for line in fIn:
+    line = line.strip().decode()
+    print('line: ', line)
+    words = line.split()
+    for word in words:
+      for char in word:
+        charCount += 1
+        if charCount <= 3000:
+          print(char)
+  print(charCount)
+
+
+if __name__ == "__main__":
+  #socketProg1()
+  socketProg3()
