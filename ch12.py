@@ -154,3 +154,6 @@ def socketProg3():
 if __name__ == "__main__":
   #socketProg1()
   socketProg3()
+
+#for html parsing, try:
+#http://stackoverflow.com/questions/21388915/html-parsing-text-in-python-3
