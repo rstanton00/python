@@ -1,3 +1,5 @@
+#Lists (arrays)
+
 def chop (myList):
   myList.pop(0) #remove first element
   myList.pop() #remove last element

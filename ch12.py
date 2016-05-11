@@ -1,3 +1,5 @@
+#Network programs (sockets, web scraping/parsing)
+
 import socket
 import time
 import re

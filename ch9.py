@@ -1,3 +1,5 @@
+#Dictionaries (Hashes)
+
 import string
 
 def inWords(myFile):

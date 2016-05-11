@@ -1,3 +1,5 @@
+#Files
+
 try:
   inFile = input('Enter the file name: ')
   type = input('Enter <upper> or <search> for type of program to run: ')
