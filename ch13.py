@@ -93,7 +93,15 @@ def googleGeocodeApi():
 
    lat = js["results"][0]["geometry"]["location"]["lat"]
    lng = js["results"][0]["geometry"]["location"]["lng"]
+
+   countryCode = 'No associated country'
+   #fetch country code, no direct access, need to loop and check
+   for component in js["results"][0]["address_components"]:
+      if component['types'][0] == "country":
+         countryCode = component["short_name"]
+
    print('lat',lat,'lng',lng)
+   print('Country is:', countryCode)
    location = js['results'][0]['formatted_address']
    print(location)
 
